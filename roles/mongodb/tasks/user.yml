@@ -1,0 +1,7 @@
+---
+- mongodb_user:
+    database: "{{database}}"
+    name: "{{user}}"
+    password: "{{password}}"
+    roles: userAdminAnyDatabase
+    state: present

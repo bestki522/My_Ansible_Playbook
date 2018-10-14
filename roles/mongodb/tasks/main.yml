@@ -1,0 +1,19 @@
+---
+- name: add yum repo for mongodb
+  template: src=repo.j2 dest=/etc/yum.repos.d/mongodb-org-4.0.repo
+  tags: mongodb
+
+- name: install mongodb
+  yum: name=mongodb-org state=present
+  tags: mongodb
+
+- name: run mongodb
+  service: name=mongod state=started enabled=yes
+  tags: mongodb
+  notify: restart mongodb
+
+- name: install pymongo
+  include: 'pymongo.yml'
+
+- name: create admin user
+  include: 'user.yml'

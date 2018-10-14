@@ -1,0 +1,12 @@
+---
+- name: install elasticsearch step
+  include: elasticsearch.yml
+
+- name: install logstash step
+  include: logstash.yml
+
+- name: install kibana step
+  include: kibana.yml
+
+- name: reload firewalld
+  command: firewall-cmd --reload

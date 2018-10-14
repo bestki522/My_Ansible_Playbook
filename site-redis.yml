@@ -1,0 +1,12 @@
+---
+- name: Install and config redis
+  hosts: redis
+  remote_user: root
+  #vars:
+  #  ansible_private_key_file: "{{rediskey}}"
+  # remote_user: user
+  # become: yes
+  # become_method: sudo
+
+  roles:
+    - redis

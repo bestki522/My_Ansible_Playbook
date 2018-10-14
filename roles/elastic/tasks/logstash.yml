@@ -1,0 +1,25 @@
+---
+- name: add yum repo for logstash
+  template: src=logstash_repo.j2 dest=/etc/yum.repos.d/logstash.repo
+
+- name: install logstash
+  yum: name=logstash state=present
+
+- name: run logstash
+  service: name=logstash state=started enabled=yes
+
+- name: config logstash
+  template:
+    src="{{item.src}}"
+    dest="{{item.dest}}"
+  with_items:
+    - {src: "input.conf.j2", dest: "/etc/logstash/conf.d/input.conf"}
+    - {src: "output.conf.j2", dest: "/etc/logstash/conf.d/output.conf"}
+    - {src: "filter.conf.j2", dest: "/etc/logstash/conf.d/filter.conf"}
+  notify: restart logstash
+
+- name: allow firewall port 5044
+  firewalld:
+    port: 5044/tcp
+    permanent: true
+    state: enabled

@@ -1,0 +1,12 @@
+---
+- name: add epel-release repo
+  shell: yum install epel-release -y
+  tags: redis
+
+- name: install redis
+  yum: name=redis state=present
+  tags: redis
+
+- name: restart redis
+  service: name=redis state=started enabled=yes
+  tags: redis

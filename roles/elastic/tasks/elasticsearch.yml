@@ -1,0 +1,19 @@
+---
+- name: add yum repo for elasticsearch
+  template: src=elasticsearch_repo.j2 dest=/etc/yum.repos.d/elasticsearch.repo
+  tags: elasticsearch
+
+- name: install java sdk
+  yum: name=java state=latest
+
+- name: install elasticsearch
+  yum: name=elasticsearch state=present
+
+- name: run elasticsearch
+  service: name=elasticsearch state=started enabled=yes
+
+- name: allow firewall port 9200
+  firewalld:
+    port: 9200/tcp
+    permanent: true
+    state: enabled

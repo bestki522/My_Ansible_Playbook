@@ -1,0 +1,15 @@
+---
+- name: add yum repo for kibana
+  template: src=kibana_repo.j2 dest=/etc/yum.repos.d/kibana.repo
+
+- name: install kibana
+  yum: name=kibana state=present
+
+- name: run kibana
+  service: name=kibana state=started enabled=yes
+
+- name: allow firewall port 5601
+  firewalld:
+    port: 5601/tcp
+    permanent: true
+    state: enabled

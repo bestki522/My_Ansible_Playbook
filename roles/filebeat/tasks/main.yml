@@ -1,0 +1,10 @@
+---
+- name: add filebeat repo to yum
+  template: src=filebeat_repo.j2 dest=/etc/yum.repos.d/filebeat.repo
+
+- name: install filebeat
+  yum: name=filebeat state=present
+
+- name: config filebeat
+  template: src=filebeat.yml.j2 dest=/etc/filebeat/filebeat.yml
+  notify: restart filebeat

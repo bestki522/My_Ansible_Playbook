@@ -1,0 +1,23 @@
+---
+- name: add epel-release repo
+  yum: name=epel-release state=present
+
+- name: add yum repo for mariadb
+  template: src=mariadb_repo.j2 dest=/etc/yum.repos.d/MariaDB.repo
+
+- name: install mariadb
+  yum: name=MariaDB-server state=present
+#    - MariaDB-client
+#    - MariaDB-libs
+#    - MySQL-python
+#    - perl-DBD-MySQL
+#  state: present
+
+- name: run mariadb
+  service: name=mariadb state=started enabled=yes
+
+- name: install pymysql
+  include: 'pymysql.yml'
+
+- name: mysql secure installation
+  include: 'mysql_secure_installation.yml'
