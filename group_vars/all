@@ -1,7 +1,3 @@
 ---
 ansible_ssh_user: root
-mongodbkey: "/root/.ssh/mongodb.key"
-rediskey: "/root/.ssh/redis.key"
-elastickey: "/root/.ssh/elastic.key"
-elasticclientkey: "/root/.ssh/elasticclient.key"
-mariadbkey: "/root/.ssh/mariadb.key"
+ansible_ssh_private_key_file: /root/.ssh/id_rsa

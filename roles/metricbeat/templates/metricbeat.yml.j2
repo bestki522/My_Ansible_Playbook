@@ -1,0 +1,20 @@
+metricbeat.modules:
+- module: system
+  metricsets:
+    - cpu
+    - load
+    - core
+    - diskio
+    - filesystem
+    - fsstat
+    - memory
+    - network
+    - process
+    - socket
+  enabled: true
+  period: 10s
+  processes: ['.*']
+
+output.logstash:
+  hosts: ["192.168.23.200:5044"]
+

@@ -45,6 +45,10 @@
 [mongodb]
 node1 ansible_host=192.168.23.110
 
+[mongodb-slave]
+slave1 ansible_host=192.168.23.111
+slave2 ansible_host=192.168.23.112
+
 [redis]
 node2 ansible_host=192.168.23.120
 

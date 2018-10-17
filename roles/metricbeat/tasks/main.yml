@@ -1,0 +1,10 @@
+---
+- name: add metricbeat repo to yum
+  template: src=metricbeat_repo.j2 dest=/etc/yum.repos.d/metricbeat.repo
+
+- name: install metricbeat
+  yum: name=metricbeat state=present
+
+- name: config metricbeat
+  template: src=metricbeat.yml.j2 dest=/etc/metricbeat/metricbeat.yml
+  notify: restart metricbeat
