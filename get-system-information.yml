@@ -1,0 +1,22 @@
+---
+-
+  hosts: all
+  name: "Check machine CPU core count via /proc/cpuinfo"
+  tasks:
+    -
+      name: "system info"
+      register: result
+      shell: "{{item}}"
+      with_items:
+        - cat /proc/cpuinfo | grep processor | wc -l
+        - uname -m
+        - cat /proc/cpuinfo | grep 'model name' | awk -F':' '{print $2}'
+        - cat /proc/meminfo | grep MemTotal
+        - df -T -h / | sed 1d | tr -s ' ' | cut -d ' ' -f 3
+    - debug: 
+        msg:
+          - "CPU cores: {{result.results[0].stdout}}"
+          - "OS Architect: {{result.results[1].stdout}}"
+          - "Model:{{result.results[2].stdout}}"
+          - "{{result.results[3].stdout}}"
+          - "Usage Storage: {{result.results[4].stdout}}"
